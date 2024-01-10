@@ -18,11 +18,14 @@ jobs:
       with:
         python-version: '3.x'
 
-    - name: Install pandoc
-      run: sudo apt-get install pandoc
+    - name: Install pandoc and TeX Live
+      run: |
+        sudo apt-get update
+        sudo apt-get install pandoc
+        sudo apt-get install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
 
     - name: Convert Markdown to PDF
-      run: pandoc test.md -o output.pdf
+      run: pandoc test.md -o output.pdf --pdf-engine=xelatex
 
     - name: Create Release
       id: create_release
